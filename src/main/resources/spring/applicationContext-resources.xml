@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+    
+	<!-- JNDI DataSource for J2EE environments -->
+  	<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/appfuse"/>-->
+
+	<!-- 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+    	<value>java:comp/env/OECS_G2_PAYMENT_DS</value>
+   		</property>
+	</bean>
+	 -->
+	 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+  		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/zzms?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="user" value="root" />
+		<property name="password" value="" />
+		<property name="initialPoolSize" value="2" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="5" />
+		<property name="testConnectionOnCheckin" value="false" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="checkoutTimeout" value="3000" />
+		<property name="preferredTestQuery" value="SELECT 1" />
+ 	</bean>
+</beans>

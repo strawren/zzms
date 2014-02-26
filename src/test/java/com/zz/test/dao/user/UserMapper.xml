@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.test.dao.user.UserDao">
+  <resultMap id="BaseResultMap" type="com.zz.test.model.user.UserModel">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_PWD" jdbcType="VARCHAR" property="userPwd" />
+  </resultMap>
+  
+  <insert id="save" parameterType="com.zz.test.model.user.UserModel">
+    insert into BSP_USER (USER_NAME, USER_PWD)
+    values (#{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="get" parameterType="long" resultMap="BaseResultMap">
+  	select * from BSP_USER where ID = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="delete" parameterType="long">
+  	delete from BSP_USER where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <update id="update" parameterType="com.zz.test.model.user.UserModel">
+    update BSP_USER
+    <set>
+      <if test="entityMap.userName != null">
+        USER_NAME = #{entityMap.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="entityMap.userPwd != null">
+        USER_PWD = #{entityMap.userPwd,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="find" parameterType="com.zz.bsp.orm.query.OecsCriterion" resultMap="BaseResultMap">
+  	SELECT * FROM BSP_USER WHERE 1=1 ${whereSqlString}
+  	<if test="orderBy != null">
+  		${orderBySqlString}
+  	</if>
+  </select>
+  
+  <select id="count" parameterType="com.zz.bsp.orm.query.OecsCriterion" resultType="long" >
+  	SELECT COUNT(ID) FROM BSP_USER WHERE 1=1 ${whereSqlString} 
+  </select>
+</mapper>

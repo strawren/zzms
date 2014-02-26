@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
+    <display-name>zz-ms</display-name>
+    
+    <!-- Spring ApplicationContext配置文件的路径,可使用通配符. -->
+    <!-- 多个路径用,号分隔此参数用于后面的Spring Context Loader -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:/applicationContext.xml</param-value>
+    </context-param>
+  
+  	<listener>
+    	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  	</listener>
+  
+    <!-- Spring初始化容器类. -->
+    <!-- 取配置文件里面定义的参数contextConfigLocation-->
+    <!-- 若没有定义参数，则默认读取applicationContext.xml. -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+   <!-- 字符编码过滤. -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+	<filter>
+    	<filter-name>shiroFilter</filter-name>
+    	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  	</filter>
+  	<filter-mapping>
+    	<filter-name>shiroFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+  	</filter-mapping>
+  	
+  	<servlet>
+    	<servlet-name>kaptcha</servlet-name>
+    	<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    	<init-param>
+	      <description> Border around kaptcha. Legal values are yes or no. </description>
+	      <param-name>kaptcha.border</param-name>
+	      <param-value>no</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>Color of the border. Legal values are r,g,b (and optional alpha) or white,black,blue. </description>
+	      <param-name>kaptcha.border.color</param-name>
+	      <param-value>red</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>Thickness of the border around kaptcha. Legal values are > 0. </description>
+	      <param-name>kaptcha.border.thickness</param-name>
+	      <param-value>5</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>Width in pixels of the kaptcha image. </description>
+	      <param-name>kaptcha.image.width</param-name>
+	      <param-value>85</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>Height in pixels of the kaptcha image. </description>
+	      <param-name>kaptcha.image.height</param-name>
+	      <param-value>35</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The image producer. </description>
+	      <param-name>kaptcha.producer.impl</param-name>
+	      <param-value>com.google.code.kaptcha.impl.DefaultKaptcha </param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The text producer. </description>
+	      <param-name>kaptcha.textproducer.impl</param-name>
+	      <param-value>com.google.code.kaptcha.text.impl.DefaultTextCreator</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The characters that will create the kaptcha. </description>
+	      <param-name>kaptcha.textproducer.char.string</param-name>
+	      <param-value>abcde2345678gfynmnpwx </param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The number of characters to display. </description>
+	      <param-name>kaptcha.textproducer.char.length</param-name>
+	      <param-value>5</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>A list of comma separated font names.</description>
+	      <param-name>kaptcha.textproducer.font.names</param-name>
+	      <param-value>Arial, Courier</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The size of the font to use. </description>
+	      <param-name>kaptcha.textproducer.font.size</param-name>
+	      <param-value>23</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The color to use for the font. Legal values are r,g,b. </description>
+	      <param-name>kaptcha.textproducer.font.color</param-name>
+	      <param-value>black</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The noise producer. </description>
+	      <param-name>kaptcha.noise.impl</param-name>
+	      <param-value>com.google.code.kaptcha.impl.NoNoise </param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The noise color. Legal values are r,g,b. </description>
+	      <param-name>kaptcha.noise.color</param-name>
+	      <param-value>black</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The obscurificator implementation. </description>
+	      <param-name>kaptcha.obscurificator.impl</param-name>
+	      <param-value>com.google.code.kaptcha.impl.ShadowGimpy</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>The background implementation. </description>
+	      <param-name>kaptcha.background.impl</param-name>
+	      <param-value>com.google.code.kaptcha.impl.DefaultBackground</param-value>
+	    </init-param>
+	    <init-param>
+	      <description>Ending background color. Legal values are r,g,b. </description>
+	      <param-name>kaptcha.background.clear.to</param-name>
+	      <param-value>white</param-value>
+	    </init-param>
+  	</servlet>
+  	<servlet-mapping>
+		<servlet-name>kaptcha</servlet-name>
+		<url-pattern>/kaptcha.jpg</url-pattern>
+	</servlet-mapping>
+  
+    <!-- Spring分发的类，所有以.html结尾的页面均对应classpath*:dispatcher-servlet.xml配置文件. -->
+    <servlet>
+        <servlet-name>dispatcher-servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher-servlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+     <!-- Spring 刷新Introspector防止内存泄露 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+    <!-- oecs 初始化 -->
+    <listener> 
+        <listener-class>com.zz.bsp.web.listener.ContextLoaderListener</listener-class> 
+    </listener>
+
+    <welcome-file-list>
+    	<welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>
